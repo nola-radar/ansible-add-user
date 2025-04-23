@@ -11,3 +11,5 @@ $ ansible-playbook add-user.yaml
 
   joe-user added.
   
+# Update existing user's key.
+Run 'update-pkey.yaml'
