@@ -1,0 +1,54 @@
+# For adding a user and pushing keys to a host.
+# Adjust 'host:' to whichever environment you're using.
+---
+-
+  become: true
+#  hosts: dev-000
+  vars_prompt:
+
+    - name: username
+      prompt: What is the username?
+      private: no
+
+    - name: key
+      prompt: Key name?
+      private: no
+
+    - name: hosts
+      prompt: hostnames
+      private: no
+
+  hosts: "{{ hosts }}"
+  tasks:
+    -
+      user: name={{ username }} comment="{{ username }} User" groups=wheel
+    - name: "Create .ssh directory"
+      command: mkdir /home/{{ username }}/.ssh
+    - name: "Set .ssh permissions"
+      file:
+        path: /home/{{ username }}/.ssh
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: 0700
+
+    - name: "Placing key"
+      copy: src=keys/{{key}}.pub dest=/home/{{username}}/.ssh/authorized_keys
+    - name: "chown key"
+      command: chown {{username}}:{{username}} /home/{{username}}/.ssh/authorized_keys
+    - name: "chmod key"
+      command: chmod 600 /home/{{username}}/.ssh/authorized_keys
+
+    - name: "Allow admin users to sudo without a password"
+      lineinfile:
+        dest: "/etc/sudoers" # path: in version 2.3
+        state: "present"
+        regexp: "^%wheel"
+        line: "%wheel ALL=(ALL) NOPASSWD: ALL"
+
+    - name: display post install message
+      debug:
+        msg:
+          - '{{ username }} user added'
+
+# Note: Remove user with 'userdel username'.  Remove user and their files
+# with 'userdel -r username'
