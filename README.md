@@ -5,9 +5,9 @@ Note: Create a 'keys' subdirectory to hold users public keys.
 # Usage
 $ ansible-playbook add-user.yaml
 
-  What is the username?: joe-user
-  Key name?: joe  (No need to put .pub extension)
-  hostnames: dev-000:dev-111:dev-222 (Use a ':' between hostnames if you're adding to more than one machine.)
+  What is the username?: joe-user <br />
+  Key name?: joe  (No need to put .pub extension) <br />
+  hostnames: dev-000:dev-111:dev-222 (Use a ':' between hostnames if you're adding to more than one machine.) <br />
 
   joe user added.
   
