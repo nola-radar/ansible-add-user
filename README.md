@@ -1,5 +1,5 @@
 # ansible-add-user
-Ansible playbook to add ssh users to Linux
+Ansible playbook to add ssh users to Linux and give them 'sudo' access.
 
 Note: Put public user keys in 'dev' directory.
 # Usage
