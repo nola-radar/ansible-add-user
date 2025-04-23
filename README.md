@@ -1,7 +1,7 @@
 # ansible-add-user
 Ansible playbook to add ssh users to Linux
 
-Note: Create a 'keys' subdirectory to hold users public keys.
+Note: Put public user keys in 'dev' directory.
 # Usage
 $ ansible-playbook add-user.yaml
 
