@@ -45,7 +45,7 @@
         regexp: "^%wheel"
         line: "%wheel ALL=(ALL) NOPASSWD: ALL"
 
-    - name: display post install message
+    - name: display post run message
       debug:
         msg:
           - '{{ username }} user added'
