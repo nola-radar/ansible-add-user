@@ -1,0 +1,28 @@
+# For updating an existing user's public key.
+# Adjust 'host:' to whichever environment you're using.
+---
+-
+  become: true
+#  hosts: dev-127.convr.in
+  vars_prompt:
+
+    - name: username
+      prompt: What is the username?
+      private: no
+
+    - name: key
+      prompt: Key name?
+      private: no
+
+    - name: hosts
+      prompt: hostnames
+      private: no
+
+  hosts: "{{ hosts }}"
+  tasks:
+    - name: "Placing key"
+      copy: src=keys/{{key}}.pub dest=/home/{{username}}/.ssh/authorized_keys
+    - name: "chown key"
+      command: chown {{username}}:{{username}} /home/{{username}}/.ssh/authorized_keys
+    - name: "chmod key"
+      command: chmod 600 /home/{{username}}/.ssh/authorized_keys
